@@ -3,7 +3,7 @@ import cv2
 cap = cv2.VideoCapture('testvid.mp4')
 
 fourcc = cv2.VideoWriter_fourcc(*'DIVX')
-out = cv2.VideoWriter('output.avi',fourcc, 20.0, (1280,720))
+out = cv2.VideoWriter('circles.avi',fourcc, 20.0, (1280,720))
 
 fgbg = cv2.bgsegm.createBackgroundSubtractorMOG()
 while(1):
@@ -12,8 +12,9 @@ while(1):
         break
     #fgmask = fgbg.apply(frame)
     edges = cv2.Canny(frame,100,200)
-    cv2.imshow('frame',edges) 
-    out.write(edges)
+    cv2.imshow('frame',edges)
+    newframe = cv2.cvtColor(edges, cv2.COLOR_GRAY2RGB)
+    out.write(newframe)
     k = cv2.waitKey(30) & 0xff
     if k == 27:
         break
