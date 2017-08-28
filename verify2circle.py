@@ -17,7 +17,7 @@ while(1):
     edges = cv2.Canny(frame,100,200)
     circles = cv2.HoughCircles(edges,cv2.HOUGH_GRADIENT,1,20,param1=50,param2=20,minRadius=12,maxRadius=20)
     circles2 = cv2.HoughCircles(edges,cv2.HOUGH_GRADIENT,1,20,param1=50,param2=20,minRadius=5,maxRadius=13)
-    print(circles)
+    #print(circles)
     newframe = cv2.cvtColor(edges, cv2.COLOR_GRAY2RGB)
     #circles = np.uint16(np.around(circles))
     if circles2 is not None:
@@ -56,7 +56,7 @@ while(1):
         for (x, y, r) in circles2:
                 cv2.circle(newframe, (x, y), r, (0, 0, 255), 3)
                 cv2.circle(newframe, (x, y), 2, (0, 0, 255), 2)
-    cv2.imshow('frame',final_nobg)
+    cv2.imshow('frame',final_image)
     cv2.imshow('frame2',newframe)
     #out.write(newframe)
     k = cv2.waitKey(30) & 0xff
@@ -67,7 +67,7 @@ x, y, w, h = [428, 11, 379, 379]
 final_nobg = final_nobg[y:y+h, x:x+w]
 count = cv2.cvtColor(final_nobg, cv2.COLOR_BGR2GRAY)
 print("Percent covered: " + str(((np.count_nonzero(count))/130546)*100) + "%")
-cv2.imwrite('result.png',count)
+cv2.imwrite('result.png',final_image)
 cap.release()
 #out.release()
 cv2.destroyAllWindows()
